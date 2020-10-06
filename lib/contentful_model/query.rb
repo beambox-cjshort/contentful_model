@@ -28,6 +28,11 @@ module ContentfulModel
       load.last
     end
 
+    def related
+      self << { 'sys.id[ne]' => '<g7tkQ7DJz1f4Ct7iA93fn>' }
+      load
+    end
+
     def offset(n)
       self << { 'skip' => n }
       self
