@@ -23,7 +23,7 @@ module ContentfulModel
       load.first
     end
 
-    def first
+    def last
       self << { 'limit' => 1 }
       load.last
     end
