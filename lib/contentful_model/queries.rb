@@ -34,8 +34,8 @@ module ContentfulModel
         query.last
       end
 
-      def related
-        query.related
+      def related(id, q, n)
+        query.related(id, q, n)
       end
 
       def params(options)

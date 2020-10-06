@@ -28,8 +28,8 @@ module ContentfulModel
       load.last
     end
 
-    def related
-      self << { 'sys.id[ne]' => 'g7tkQ7DJz1f4Ct7iA93fn', query: "unifi", 'limit' => 3 }
+    def related(id, q, n)
+      self << { 'sys.id[ne]' => id, query: query, 'limit' => n }
       load
     end
 
