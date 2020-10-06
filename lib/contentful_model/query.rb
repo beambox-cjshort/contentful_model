@@ -24,6 +24,7 @@ module ContentfulModel
     end
 
     def last
+      self << { 'order' => '-sys.createdAt' }
       load.last
     end
 
