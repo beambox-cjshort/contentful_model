@@ -23,6 +23,11 @@ module ContentfulModel
       load.first
     end
 
+    def first
+      self << { 'limit' => 1 }
+      load.last
+    end
+
     def offset(n)
       self << { 'skip' => n }
       self

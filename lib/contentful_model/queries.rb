@@ -30,6 +30,10 @@ module ContentfulModel
         query.first
       end
 
+      def last
+        query.last
+      end
+
       def params(options)
         query.params(options)
       end
