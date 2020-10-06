@@ -29,7 +29,7 @@ module ContentfulModel
     end
 
     def related
-      self << { 'sys.id[ne]' => 'g7tkQ7DJz1f4Ct7iA93fn' }
+      self << { 'sys.id[ne]' => 'g7tkQ7DJz1f4Ct7iA93fn', query: "unifi", 'limit' => 3 }
       load
     end
 
