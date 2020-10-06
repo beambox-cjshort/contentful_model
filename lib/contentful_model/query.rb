@@ -28,9 +28,8 @@ module ContentfulModel
       load.last
     end
 
-    def related(id, q, n)
-      self << { 'sys.id[ne]' => id, query: q, 'limit' => n }
-      load
+    def related(id, q)
+      self << { 'sys.id[ne]' => id, query: q}
     end
 
     def offset(n)
@@ -41,6 +40,11 @@ module ContentfulModel
 
     def limit(n)
       self << { 'limit' => n }
+      self
+    end
+
+    def not(q)
+      self << { 'sys.category[ne]' => q }
       self
     end
 
