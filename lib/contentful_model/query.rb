@@ -25,7 +25,7 @@ module ContentfulModel
 
     def last
       # self << { 'limit' => 1 }
-      load.last
+      load
     end
 
     def offset(n)
