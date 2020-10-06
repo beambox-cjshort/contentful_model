@@ -29,7 +29,7 @@ module ContentfulModel
     end
 
     def related(id, q, n)
-      self << { 'sys.id[ne]' => id, query: query, 'limit' => n }
+      self << { 'sys.id[ne]' => id, query: q, 'limit' => n }
       load
     end
 
