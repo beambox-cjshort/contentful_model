@@ -28,8 +28,9 @@ module ContentfulModel
       load.last
     end
 
-    def related(id, q)
-      self << { 'sys.id[ne]' => id, query: q}
+    def related(id, q, n)
+      self << { 'sys.id[ne]' => id, query: q, 'limit' => 3}
+      load
     end
 
     def offset(n)
@@ -152,7 +153,7 @@ module ContentfulModel
           # For example
           # Model.search(start_date: {gte: DateTime.now}) => "fields.start_date[gte]" => DateTime.now
           value.each do |search_predicate, search_value|
-            self << { "#{key}[ne]" => search_value }
+            self << { "#{key}[#{search_predicate}]" => search_value }
           end
         end
       end
