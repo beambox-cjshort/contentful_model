@@ -137,9 +137,9 @@ module ContentfulModel
         key = if field.to_s.include?('sys.') || field.to_s.include?('fields.')
                 field
               elsif SYS_PROPERTIES.include?(field.to_s)
-                "sys.#{field}"
+                "sys.#{field}[ne]"
               else
-                "fields.#{field}"
+                "fields.#{field}[ne]"
               end
 
         case value
