@@ -43,11 +43,6 @@ module ContentfulModel
       self
     end
 
-    def not(q)
-      self << { 'sys.category[ne]' => q }
-      self
-    end
-
     def locale(locale_code)
       self << { 'locale' => locale_code }
       self
@@ -136,6 +131,34 @@ module ContentfulModel
       self
     end
     alias where find_by
+
+    def not(find_query = {})
+      find_query.each do |field, value|
+        key = if field.to_s.include?('sys.') || field.to_s.include?('fields.')
+                field
+              elsif SYS_PROPERTIES.include?(field.to_s)
+                "sys.#{field}"
+              else
+                "fields.#{field}"
+              end
+
+        case value
+        when Array # we need to do an 'in' query
+          self << { "#{key}[ne]" => value.join(',') }
+        when String, Numeric, true, false
+          self << { key.to_s => value }
+        when Hash
+          # if the search is a hash, use the key to specify the search field operator
+          # For example
+          # Model.search(start_date: {gte: DateTime.now}) => "fields.start_date[gte]" => DateTime.now
+          value.each do |search_predicate, search_value|
+            self << { "#{key}[#{search_predicate}]" => search_value }
+          end
+        end
+      end
+
+      self
+    end
 
     def search(parameters)
       if parameters.is_a?(Hash)

@@ -83,6 +83,10 @@ module ContentfulModel
         query.find_by(find_query)
       end
 
+      def not(find_query = {})
+        query.not(find_query)
+      end
+
       def search(parameters)
         query.search(parameters)
       end
