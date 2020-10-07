@@ -48,7 +48,7 @@ module ContentfulModel
       self
     end
 
-    def paginate(page = 1, per_page = 100, order_field = 'sys.updatedAt', additional_options = {})
+    def paginate(page = 1, per_page = 100, order_field = '-sys.createdAt', additional_options = {})
       page = 1 if page.nil? || !page.is_a?(Numeric) || page <= 0
       per_page = 100 if per_page.nil? || !per_page.is_a?(Numeric) || per_page <= 0
 
@@ -137,9 +137,9 @@ module ContentfulModel
         key = if field.to_s.include?('sys.') || field.to_s.include?('fields.')
                 field
               elsif SYS_PROPERTIES.include?(field.to_s)
-                "sys.#{field}[ne]"
+                "sys.#{field}"
               else
-                "fields.#{field}[ne]"
+                "fields.#{field}"
               end
 
         case value
@@ -152,7 +152,7 @@ module ContentfulModel
           # For example
           # Model.search(start_date: {gte: DateTime.now}) => "fields.start_date[gte]" => DateTime.now
           value.each do |search_predicate, search_value|
-            self << { "#{key}[#{search_predicate}]" => search_value }
+            self << { "#{key}[ne]" => search_value }
           end
         end
       end
